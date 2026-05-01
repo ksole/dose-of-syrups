@@ -7,275 +7,37 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background: linear-gradient(145deg, #eef2ff 0%, #f0f9ff 100%);
-            padding: 20px;
-            min-height: 100vh;
-            color: #1e293b;
-        }
-
-        .container {
-            max-width: 950px;
-            margin: 0 auto;
-        }
-
-        /* header */
-        .header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .header h1 {
-            font-size: 1.9rem;
-            font-weight: 800;
-            background: linear-gradient(120deg, #0c4a6e, #1e6f5c);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            margin-bottom: 5px;
-        }
-
-        .header p {
-            color: #2c5f6e;
-            font-weight: 500;
-        }
-
-        /* cards */
-        .card {
-            background: rgba(255, 255, 255, 0.98);
-            border-radius: 32px;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.12);
-            padding: 20px 25px;
-            margin-bottom: 25px;
-            transition: all 0.2s;
-            border: 1px solid rgba(14, 165, 233, 0.3);
-        }
-
-        .card h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            border-right: 6px solid #0ea5e9;
-            padding-right: 16px;
-            margin-bottom: 20px;
-            color: #0c4a6e;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* select area => custom dropdown */
-        .custom-select-area {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        #searchDrug {
-            width: 100%;
-            padding: 14px 18px;
-            font-size: 1rem;
-            font-family: 'Tajawal', monospace;
-            border: 2px solid #cbd5e1;
-            border-radius: 30px;
-            background: white;
-            font-weight: 500;
-            transition: all 0.2s;
-            padding-right: 45px;
-        }
-
-        #searchDrug:focus {
-            border-color: #0ea5e9;
-            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
-            outline: none;
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 18px;
-            top: 16px;
-            color: #0ea5e9;
-            font-size: 1.2rem;
-        }
-
-        #drugListBox {
-            position: absolute;
-            z-index: 1000;
-            background: white;
-            width: 100%;
-            max-height: 350px;
-            border: 2px solid #0ea5e9;
-            border-radius: 20px;
-            overflow-y: auto;
-            margin-top: 5px;
-            box-shadow: 0 15px 25px -10px rgba(0,0,0,0.2);
-            display: none;
-        }
-
-        #drugListBox.show {
-            display: block;
-        }
-
-        .drug-option {
-            padding: 12px 18px;
-            cursor: pointer;
-            border-bottom: 1px solid #e2e8f0;
-            font-weight: 500;
-            transition: background 0.1s;
-            font-size: 0.95rem;
-        }
-
-        .drug-option:hover {
-            background: #e0f2fe;
-        }
-
-        .drug-category {
-            background: #f1f5f9;
-            font-weight: 800;
-            color: #0369a1;
-            padding: 8px 15px;
-            border-bottom: 1px solid #cbd5e1;
-            font-size: 0.8rem;
-            letter-spacing: 0.5px;
-        }
-
-        /* row 3 */
-        .row-3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .input-field label {
-            display: block;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: #155e75;
-            font-size: 0.85rem;
-        }
-
-        .input-field input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #cbd5e1;
-            border-radius: 20px;
-            font-family: 'Tajawal', monospace;
-            font-size: 1rem;
-            text-align: center;
-            font-weight: 700;
-        }
-
-        .btn-calc {
-            background: linear-gradient(95deg, #0ea5e9, #06b6d4);
-            border: none;
-            width: 100%;
-            padding: 14px;
-            border-radius: 50px;
-            font-family: 'Tajawal', sans-serif;
-            font-weight: 800;
-            font-size: 1.2rem;
-            color: white;
-            cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: 0 5px 12px rgba(0,0,0,0.1);
-        }
-
-        .btn-calc:hover {
-            transform: scale(0.98);
-            background: linear-gradient(95deg, #0284c7, #0891b2);
-        }
-
-        /* result card */
-        .result-value {
-            background: #f0fdf4;
-            border-radius: 30px;
-            padding: 15px;
-            text-align: center;
-            border: 2px solid #22c55e;
-            margin-bottom: 20px;
-        }
-
-        .dose-ml {
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: #166534;
-            letter-spacing: 2px;
-            font-family: monospace;
-            background: white;
-            display: inline-block;
-            padding: 5px 25px;
-            border-radius: 60px;
-            box-shadow: inset 0 0 0 1px #bbf7d0, 0 8px 15px -8px rgba(0,0,0,0.2);
-        }
-
-        .dose-mg {
-            font-size: 1.1rem;
-            margin-top: 10px;
-            color: #2d3c2b;
-            font-weight: 700;
-        }
-
-        .info-line {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px dashed #cbd5e1;
-            padding: 10px 0;
-            font-weight: 500;
-        }
-
-        .warning-note {
-            background: #fffbeb;
-            border-right: 6px solid #f59e0b;
-            padding: 12px 18px;
-            border-radius: 24px;
-            margin-top: 18px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #b45309;
-        }
-
-        .btn-print {
-            background: #059669;
-            width: 100%;
-            padding: 12px;
-            border-radius: 40px;
-            border: none;
-            font-family: 'Tajawal', sans-serif;
-            font-weight: 800;
-            color: white;
-            font-size: 1rem;
-            margin-top: 20px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            font-weight: 700;
-            color: #2c5f6e;
-            padding: 10px;
-            border-top: 1px solid #cbd5e1;
-        }
-
-        @media (max-width: 650px) {
-            .row-3 {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-            .dose-ml {
-                font-size: 2.2rem;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: linear-gradient(145deg, #eef2ff 0%, #f0f9ff 100%); padding: 20px; min-height: 100vh; color: #1e293b; }
+        .container { max-width: 950px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 25px; }
+        .header h1 { font-size: 1.9rem; font-weight: 800; background: linear-gradient(120deg, #0c4a6e, #1e6f5c); background-clip: text; -webkit-background-clip: text; color: transparent; }
+        .card { background: rgba(255, 255, 255, 0.98); border-radius: 32px; box-shadow: 0 20px 35px -12px rgba(0,0,0,0.12); padding: 20px 25px; margin-bottom: 25px; border: 1px solid rgba(14,165,233,0.3); }
+        .card h2 { font-size: 1.5rem; font-weight: 700; border-right: 6px solid #0ea5e9; padding-right: 16px; margin-bottom: 20px; color: #0c4a6e; }
+        .custom-select-area { position: relative; margin-bottom: 20px; }
+        #searchDrug { width: 100%; padding: 14px 18px; font-size: 1rem; font-family: 'Tajawal', monospace; border: 2px solid #cbd5e1; border-radius: 30px; background: white; font-weight: 500; padding-right: 45px; }
+        #searchDrug:focus { border-color: #0ea5e9; box-shadow: 0 0 0 3px rgba(14,165,233,0.2); outline: none; }
+        .search-icon { position: absolute; left: 18px; top: 16px; color: #0ea5e9; }
+        #drugListBox { position: absolute; z-index: 1000; background: white; width: 100%; max-height: 350px; border: 2px solid #0ea5e9; border-radius: 20px; overflow-y: auto; margin-top: 5px; box-shadow: 0 15px 25px -10px rgba(0,0,0,0.2); display: none; }
+        #drugListBox.show { display: block; }
+        .drug-option { padding: 12px 18px; cursor: pointer; border-bottom: 1px solid #e2e8f0; font-weight: 500; }
+        .drug-option:hover { background: #e0f2fe; }
+        .drug-category { background: #f1f5f9; font-weight: 800; color: #0369a1; padding: 8px 15px; font-size: 0.8rem; }
+        .row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .input-field label { display: block; font-weight: 700; margin-bottom: 6px; color: #155e75; font-size: 0.85rem; }
+        .input-field input { width: 100%; padding: 12px; border: 2px solid #cbd5e1; border-radius: 20px; font-family: monospace; font-size: 1rem; text-align: center; }
+        .btn-calc { background: linear-gradient(95deg, #0ea5e9, #06b6d4); border: none; width: 100%; padding: 14px; border-radius: 50px; font-family: 'Tajawal'; font-weight: 800; font-size: 1.2rem; color: white; cursor: pointer; }
+        .result-value { background: #f0fdf4; border-radius: 30px; padding: 15px; text-align: center; border: 2px solid #22c55e; margin-bottom: 20px; }
+        .dose-ml { font-size: 3rem; font-weight: 900; color: #166534; background: white; display: inline-block; padding: 5px 25px; border-radius: 60px; }
+        .info-line { display: flex; justify-content: space-between; border-bottom: 1px dashed #cbd5e1; padding: 8px 0; }
+        .warning-note { background: #fffbeb; border-right: 6px solid #f59e0b; padding: 12px; border-radius: 24px; margin-top: 18px; font-size: 0.85rem; font-weight: 600; color: #b45309; }
+        .btn-print { background: #059669; width: 100%; padding: 12px; border-radius: 40px; border: none; font-weight: 800; color: white; margin-top: 20px; cursor: pointer; }
+        footer { text-align: center; margin-top: 20px; font-weight: 700; color: #2c5f6e; }
+        @media (max-width: 650px) { .row-3 { grid-template-columns: 1fr; } .dose-ml { font-size: 2rem; } }
     </style>
 </head>
-<body>
+<body onload="clearSystem()">
+
 <div class="container">
     <div class="header">
         <h1><i class="fas fa-prescription-bottle"></i> حاسبة جرعات الشرابات</h1>
@@ -286,105 +48,74 @@
         <h2><i class="fas fa-search"></i> اختيار الدواء والوزن</h2>
         <div class="custom-select-area">
             <i class="fas fa-capsules search-icon"></i>
-            <input type="text" id="searchDrug" placeholder="ابحث باسم الدواء (علمي أو تجاري)..." autocomplete="off">
+            <input type="text" id="searchDrug" placeholder="ابحث باسم الدواء..." autocomplete="new-password">
             <div id="drugListBox"></div>
         </div>
-
         <div class="row-3">
-            <div class="input-field">
-                <label><i class="fas fa-calendar-alt"></i> العمر (سنة)</label>
-                <input type="number" id="ageY" placeholder="سنة" step="0.1">
-            </div>
-            <div class="input-field">
-                <label><i class="fas fa-calendar-week"></i> العمر (شهر)</label>
-                <input type="number" id="ageM" placeholder="شهر" step="1">
-            </div>
-            <div class="input-field">
-                <label><i class="fas fa-weight-scale"></i> الوزن (كجم) <span style="color:#0ea5e9;">*</span></label>
-                <input type="number" id="weight" placeholder="مثال: 12.5" step="0.1" value="12">
-            </div>
+            <div class="input-field"><label>العمر (سنة)</label><input type="number" id="ageY" placeholder="سنة" step="0.1" autocomplete="off"></div>
+            <div class="input-field"><label>العمر (شهر)</label><input type="number" id="ageM" placeholder="شهر" step="1" autocomplete="off"></div>
+            <div class="input-field"><label>الوزن (كجم)</label><input type="number" id="weight" placeholder="مثال: 12.5" step="0.1" autocomplete="off"></div>
         </div>
         <button class="btn-calc" id="calcBtn"><i class="fas fa-calculator"></i> احسب الجرعة بدقة</button>
     </div>
 
-    <div class="card" id="resultCard">
+    <div class="card">
         <h2><i class="fas fa-chart-line"></i> الجرعة الموصى بها</h2>
         <div class="result-value">
             <div class="dose-ml" id="finalMl">--- مل</div>
-            <div class="dose-mg" id="finalMgEquivalent">--- مجم لكل جرعة</div>
+            <div id="finalMgEquivalent" style="margin-top:8px;">--- مجم لكل جرعة</div>
         </div>
         <div id="detailsContainer">
-            <div class="info-line"><span>💊 الدواء:</span> <strong id="drugNameDisplay">---</strong></div>
+            <div class="info-line"><span>💊 الدواء:</span> <strong id="drugNameDisplay">لم يتم اختيار دواء</strong></div>
             <div class="info-line"><span>🧪 التركيز:</span> <span id="concDisplay">---</span></div>
             <div class="info-line"><span>⚕️ عدد المرات:</span> <span id="freqDisplay">---</span></div>
             <div class="info-line"><span>📌 ملاحظة العلاج:</span> <span id="noteDisplay">---</span></div>
         </div>
         <div id="warningBox" class="warning-note">
-            <i class="fas fa-shield-alt"></i> <span id="warningText">يمكن تقليل الجرعة بمقدار 0.5-1 مل للجرعة الآمنة (حسب الحالة)</span>
+            <i class="fas fa-shield-alt"></i> <span id="warningText">🔍 يرجى اختيار الدواء وإدخال الوزن ثم الضغط على احسب</span>
         </div>
         <button id="printBtn" class="btn-print"><i class="fas fa-print"></i> طباعة ملصق الصيدلية</button>
     </div>
-
     <footer>الصيدلاني : مصطفى عبد الزهرة هاشم</footer>
 </div>
 
 <script>
-    // ----------------------------------------------
-    // قاعدة بيانات موسعة: جميع الشرابات المطلوبة (فارماكون + الاضافات)
-    // ----------------------------------------------
     const drugsDatabase = [
-        // ========= البنسلينات =========
-        { name: "Amoxicillin 125mg/5ml", category: "البنسلينات", factor_ml_kg: 0.5, frequency: "3 مرات يومياً", note: "يؤخذ بدون ارتباط بالطعام. | يمكن تقليل الجرعة بمقدار 0.5-1 مل للجرعة الآمنة.", concentration: "125 مجم / 5 مل" },
-        { name: "Amoxicillin 250mg/5ml", category: "البنسلينات", factor_ml_kg: 0.25, frequency: "3 مرات يومياً", note: "يؤخذ بدون ارتباط بالطعام. | يمكن تقليل الجرعة بمقدار 0.5-1 مل.", concentration: "250 مجم / 5 مل" },
-        { name: "Co-amoxiclav 156mg/5ml", category: "البنسلينات", factor_ml_kg: 0.25, frequency: "3 مرات يومياً", note: "يؤخذ مع بداية الوجبة لتقليل اضطراب المعدة.", concentration: "156 مجم / 5 مل" },
-        { name: "Co-amoxiclav 312mg/5ml", category: "البنسلينات", factor_ml_kg: 0.15, frequency: "3 مرات يومياً", note: "يؤخذ مع الطعام. | يرج جيداً.", concentration: "312 مجم / 5 مل" },
-        { name: "Co-amoxiclav 457mg/5ml", category: "البنسلينات", factor_ml_kg: 0.2, frequency: "مرتين يومياً (كل 12 ساعة)", note: "مع الطعام.", concentration: "457 مجم / 5 مل" },
-        
-        // ========= سيفالوسبورينات =========
-        { name: "Cephalexin 125mg/5ml", category: "السيفالوسبورينات", factor_ml_kg: 0.8, frequency: "مرتين يومياً", note: "يمكن مع الطعام لتقليل اضطراب المعدة. | جرعة آمنة: قلل 0.5-1 مل", concentration: "125 مجم / 5 مل" },
-        { name: "Cephalexin 125mg/5ml (3×)", category: "السيفالوسبورينات", factor_ml_kg: 0.5, frequency: "3 مرات يومياً", note: "بدون طعام أو مع طعام. ملاحظة: الجرعة حسب شدة الحالة.", concentration: "125 مجم / 5 مل" },
-        { name: "Cephalexin 250mg/5ml", category: "السيفالوسبورينات", factor_ml_kg: 0.25, frequency: "مرتين يومياً", note: "مع الطعام لتقليل الغثيان.", concentration: "250 مجم / 5 مل" },
-        { name: "Cefaclor 125mg/5ml", category: "السيفالوسبورينات", factor_ml_kg: 0.4, frequency: "3 مرات يومياً", note: "يرج جيداً قبل الاستخدام. يفضل مع الطعام.", concentration: "125 مجم / 5 مل" },
-        { name: "Cefaclor 250mg/5ml", category: "السيفالوسبورينات", factor_ml_kg: 0.2, frequency: "3 مرات يومياً", note: "يرج جيداً - يمكن مع الطعام.", concentration: "250 مجم / 5 مل" },
-        { name: "Cefadroxil 250mg/5ml", category: "السيفالوسبورينات", factor_ml_kg: 0.2, frequency: "3 مرات يومياً", note: "يؤخذ بدون طعام أو مع طعام.", concentration: "250 مجم / 5 مل" },
-        { name: "Cefuroxime 125mg/5ml", category: "السيفالوسبورينات", factor_ml_kg: 0.5, frequency: "مرتين يومياً", note: "يؤخذ مع الطعام لتحسين الامتصاص.", concentration: "125 مجم / 5 مل" },
-        { name: "Cefixime 100mg/5ml", category: "السيفالوسبورينات", factor_ml_kg: 0.4, frequency: "مرة يومياً", note: "مع الطعام لتقليل اضطراب المعدة.", concentration: "100 مجم / 5 مل" },
-        { name: "Cefdinir 125mg/5ml", category: "السيفالوسبورينات", factor_ml_kg: 0.56, frequency: "مرة يومياً", note: "يُفصل عن الحديد والكالسيوم بساعتين.", concentration: "125 مجم / 5 مل" },
-        { name: "Cefdinir 125mg/5ml (مرتين)", category: "السيفالوسبورينات", factor_ml_kg: 0.28, frequency: "مرتين يومياً", note: "يفصل عن مضادات الحديد.", concentration: "125 مجم / 5 مل" },
-        
-        // ========= ماكروليدات =========
-        { name: "Azithromycin 200mg/5ml", category: "الماكروليدات", factor_ml_kg: 0.25, frequency: "مرة يومياً (3-5 أيام)", note: "قبل الأكل بساعة أو بعده بساعتين.", concentration: "200 مجم / 5 مل" },
-        { name: "Clarithromycin 125mg/5ml", category: "الماكروليدات", factor_ml_kg: 0.3, frequency: "مرتين يومياً", note: "مع أو بدون طعام.", concentration: "125 مجم / 5 مل" },
-        { name: "Clarithromycin 250mg/5ml", category: "الماكروليدات", factor_ml_kg: 0.15, frequency: "مرتين يومياً", note: "مع أو بدون طعام.", concentration: "250 مجم / 5 مل" },
-        
-        // ========= مسكنات وخوافض =========
-        { name: "Paracetamol 120mg/5ml", category: "مسكنات وخوافض", factor_ml_kg: 0.6, frequency: "كل 6 ساعات (عند الحاجة)", note: "يمكن مع الطعام لتقليل اضطراب المعدة. أقصى 4 جرعات/يوم.", concentration: "120 مجم / 5 مل" },
-        { name: "Paracetamol 250mg/5ml", category: "مسكنات وخوافض", factor_ml_kg: 0.3, frequency: "كل 6 ساعات (عند الحاجة)", note: "للأطفال أكبر من شهر.", concentration: "250 مجم / 5 مل" },
-        { name: "Ibuprofen 100mg/5ml", category: "مسكنات وخوافض", factor_ml_kg: 0.5, frequency: "3-4 مرات يومياً", note: "بعد الطعام مباشرة لحماية المعدة.", concentration: "100 مجم / 5 مل" },
-        { name: "Ibuprofen 200mg/5ml", category: "مسكنات وخوافض", factor_ml_kg: 0.25, frequency: "3-4 مرات يومياً", note: "بعد الطعام.", concentration: "200 مجم / 5 مل" },
-        
-        // ========= أدوية أخرى / متفرقات من الملف =========
-        { name: "Metronidazole 125mg/5ml", category: "أخرى (مضادات)", factor_ml_kg: 0.4, frequency: "3 مرات يومياً", note: "مع الطعام لتقليل اضطراب المعدة.", concentration: "125 مجم / 5 مل" },
-        { name: "Metronidazole 200mg/5ml", category: "أخرى (مضادات)", factor_ml_kg: 0.25, frequency: "3 مرات يومياً", note: "مع الطعام.", concentration: "200 مجم / 5 مل" },
-        { name: "Trimethoprim 50mg/5ml", category: "أخرى (مضادات)", factor_ml_kg: 0.2, frequency: "مرتين يومياً", note: "يؤخذ بدون طعام مع كأس ماء. لعلاج التهاب المسالك.", concentration: "50 مجم / 5 مل" },
-        { name: "Nitrofurantoin 25mg/5ml", category: "أخرى", factor_ml_kg: 0.3, frequency: "4 مرات يومياً", note: "مع الطعام أو الحليب لتحسين الامتصاص.", concentration: "25 مجم / 5 مل" },
-        { name: "Cotrimoxazole 240mg/5ml", category: "أخرى", factor_ml_kg: 0.1, frequency: "مرتين يومياً", note: "مع كأس ماء, بدون طعام.", concentration: "240 مجم / 5 مل" },
-        { name: "Salbutamol 2mg/5ml", category: "موسعات الشعب", factor_ml_kg: 0.15, frequency: "3 مرات يومياً", note: "يمكن تخفيف الجرعة بمقدار 0.5 مل للجرعة الوقائية.", concentration: "2 مجم / 5 مل" },
+        { name: "Amoxicillin 125mg/5ml", category: "البنسلينات", factor_ml_kg: 0.5, frequency: "3 مرات يومياً", note: "يؤخذ بدون ارتباط بالطعام.", concentration: "125 مجم / 5 مل" },
+        { name: "Amoxicillin 250mg/5ml", category: "البنسلينات", factor_ml_kg: 0.25, frequency: "3 مرات يومياً", note: "يؤخذ بدون ارتباط بالطعام.", concentration: "250 مجم / 5 مل" },
+        { name: "Co-amoxiclav 156mg/5ml", category: "البنسلينات", factor_ml_kg: 0.25, frequency: "3 مرات يومياً", note: "يؤخذ مع بداية الوجبة.", concentration: "156 مجم / 5 مل" },
+        { name: "Co-amoxiclav 312mg/5ml", category: "البنسلينات", factor_ml_kg: 0.15, frequency: "3 مرات يومياً", note: "يؤخذ مع الطعام.", concentration: "312 مجم / 5 مل" },
+        { name: "Co-amoxiclav 457mg/5ml", category: "البنسلينات", factor_ml_kg: 0.2, frequency: "مرتين يومياً", note: "مع الطعام.", concentration: "457 مجم / 5 مل" },
+        { name: "Cephalexin 125mg/5ml", category: "السيفالوسبورينات", factor_ml_kg: 0.8, frequency: "مرتين يومياً", note: "مع الطعام لتقليل اضطراب المعدة.", concentration: "125 مجم / 5 مل" },
+        { name: "Metronidazole 125mg/5ml", category: "أخرى", factor_ml_kg: 0.4, frequency: "3 مرات يومياً", note: "مع الطعام.", concentration: "125 مجم / 5 مل" },
+        { name: "Metronidazole 200mg/5ml", category: "أخرى", factor_ml_kg: 0.25, frequency: "3 مرات يومياً", note: "مع الطعام.", concentration: "200 مجم / 5 مل" },
+        { name: "Trimethoprim 50mg/5ml", category: "أخرى", factor_ml_kg: 0.2, frequency: "مرتين يومياً", note: "بدون طعام مع كأس ماء.", concentration: "50 مجم / 5 مل" },
+        { name: "Salbutamol 2mg/5ml", category: "موسعات", factor_ml_kg: 0.15, frequency: "3 مرات يومياً", note: "يمكن تقليل الجرعة 0.5 مل.", concentration: "2 مجم / 5 مل" },
         { name: "Domperidone 5mg/5ml", category: "مضادات القيء", factor_ml_kg: 0.2, frequency: "3 مرات يومياً", note: "قبل الطعام بنصف ساعة.", concentration: "5 مجم / 5 مل" },
-        { name: "Ondansetron 4mg/5ml", category: "مضادات القيء", factor_ml_kg: 0.25, frequency: "مرتين يومياً", note: "قبل الطعام بنصف ساعة.", concentration: "4 مجم / 5 مل" },
-        { name: "Prednisolone 15mg/5ml", category: "كورتيكوستيرويدات", factor_ml_kg: 0.33, frequency: "مرة يومياً (صباحاً)", note: "بعد الطعام مع كوب ماء.", concentration: "15 مجم / 5 مل" },
-        { name: "Dexamethasone 0.5mg/5ml", category: "كورتيكوستيرويدات", factor_ml_kg: 1.0, frequency: "مرتين يومياً", note: "مع الطعام لتقليل اضطراب المعدة.", concentration: "0.5 مجم / 5 مل" },
-        { name: "Lactulose 10g/15ml", category: "ملينات", factor_ml_kg: 2.0, frequency: "مرة يومياً", note: "بعد الطعام, يمكن مزجه مع عصير.", concentration: "10 جم / 15 مل" },
-        { name: "Cetirizine 5mg/5ml", category: "مضادات الهستامين", factor_ml_kg: 0.25, frequency: "مرة يومياً", note: "مع أو بدون طعام.", concentration: "5 مجم / 5 مل" },
-        { name: "Loratadine 5mg/5ml", category: "مضادات الهستامين", factor_ml_kg: 0.2, frequency: "مرة يومياً", note: "بدون طعام.", concentration: "5 مجم / 5 مل" },
-        { name: "Desloratadine 2.5mg/5ml", category: "مضادات الهستامين", factor_ml_kg: 0.2, frequency: "مرة يومياً", note: "مع أو بدون طعام.", concentration: "2.5 مجم / 5 مل" },
-        { name: "Chlorpheniramine 2mg/5ml", category: "مضادات الهستامين", factor_ml_kg: 0.4, frequency: "3-4 مرات يومياً", note: "مع الطعام أو الماء.", concentration: "2 مجم / 5 مل" }
+        { name: "Paracetamol 120mg/5ml", category: "مسكنات", factor_ml_kg: 0.6, frequency: "كل 6 ساعات", note: "مع الطعام.", concentration: "120 مجم / 5 مل" },
+        { name: "Ibuprofen 100mg/5ml", category: "مسكنات", factor_ml_kg: 0.5, frequency: "3 مرات يومياً", note: "بعد الطعام.", concentration: "100 مجم / 5 مل" }
     ];
 
-    // بناء الهيكل للقائمة المنسدلة
-    let currentDrug = drugsDatabase[0]; // default
+    let currentDrug = null;
     const searchInput = document.getElementById('searchDrug');
     const drugListDiv = document.getElementById('drugListBox');
+
+    // تصفير النظام تماماً عند الفتح
+    function clearSystem() {
+        currentDrug = null;
+        searchInput.value = "";
+        document.getElementById('weight').value = "";
+        document.getElementById('ageY').value = "";
+        document.getElementById('ageM').value = "";
+        document.getElementById('finalMl').innerText = "--- مل";
+        document.getElementById('finalMgEquivalent').innerText = "--- مجم لكل جرعة";
+        document.getElementById('drugNameDisplay').innerText = "لم يتم اختيار دواء";
+        document.getElementById('concDisplay').innerText = "---";
+        document.getElementById('freqDisplay').innerText = "---";
+        document.getElementById('noteDisplay').innerText = "---";
+        document.getElementById('warningText').innerText = "🔍 يرجى اختيار الدواء وإدخال الوزن ثم الضغط على احسب";
+        buildDrugList("");
+    }
 
     function buildDrugList(filterText = "") {
         const filtered = drugsDatabase.filter(d => d.name.toLowerCase().includes(filterText.toLowerCase()));
@@ -393,19 +124,19 @@
         
         drugListDiv.innerHTML = "";
         for(const [cat, items] of Object.entries(grouped)) {
-            const catDiv = document.createElement("div");
-            catDiv.className = "drug-category";
-            catDiv.innerText = cat;
+            const catDiv = document.createElement("div"); 
+            catDiv.className = "drug-category"; 
+            catDiv.innerText = cat; 
             drugListDiv.appendChild(catDiv);
+            
             items.forEach(drug => {
-                const opt = document.createElement("div");
-                opt.className = "drug-option";
+                const opt = document.createElement("div"); 
+                opt.className = "drug-option"; 
                 opt.innerText = drug.name;
-                opt.onclick = () => {
-                    currentDrug = drug;
-                    searchInput.value = drug.name;
-                    drugListDiv.classList.remove("show");
-                    calculateDose(); // تحديث فوري
+                opt.onclick = () => { 
+                    currentDrug = drug; 
+                    searchInput.value = drug.name; 
+                    drugListDiv.classList.remove("show"); 
                 };
                 drugListDiv.appendChild(opt);
             });
@@ -413,115 +144,85 @@
         if(filtered.length === 0) {
             const noData = document.createElement("div");
             noData.className = "drug-option";
-            noData.innerText = "❌ لا يوجد دواء مطابق";
+            noData.innerText = "❌ لا يوجد دواء";
             drugListDiv.appendChild(noData);
         }
     }
 
-    searchInput.addEventListener("input", (e) => {
-        buildDrugList(e.target.value);
-        drugListDiv.classList.add("show");
-    });
-    searchInput.addEventListener("focus", () => {
-        buildDrugList(searchInput.value);
-        drugListDiv.classList.add("show");
-    });
-    document.addEventListener("click", (e) => {
-        if(!searchInput.contains(e.target) && !drugListDiv.contains(e.target)) drugListDiv.classList.remove("show");
+    searchInput.addEventListener("input", (e) => { 
+        buildDrugList(e.target.value); 
+        drugListDiv.classList.add("show"); 
     });
 
-    // حساب الوزن التقريبي
+    searchInput.addEventListener("focus", () => { 
+        buildDrugList(searchInput.value); 
+        drugListDiv.classList.add("show"); 
+    });
+
+    document.addEventListener("click", (e) => { 
+        if(!searchInput.contains(e.target) && !drugListDiv.contains(e.target)) 
+            drugListDiv.classList.remove("show"); 
+    });
+
     function calcWeightFromAge() {
         let y = parseFloat(document.getElementById('ageY').value);
         let m = parseFloat(document.getElementById('ageM').value);
-        let weightInput = document.getElementById('weight');
-        if(!isNaN(y) && y > 0) {
-            let calcW = (y * 2) + 8;
-            weightInput.value = calcW;
-            document.getElementById('ageM').value = "";
-        } else if(!isNaN(m) && m > 0) {
-            let calcW = (m + 9) / 2;
-            weightInput.value = calcW;
-            document.getElementById('ageY').value = "";
+        let w = document.getElementById('weight');
+        if(!isNaN(y) && y > 0) { 
+            w.value = (y*2)+8; 
+            document.getElementById('ageM').value = ""; 
+        }
+        else if(!isNaN(m) && m > 0) { 
+            w.value = (m+9)/2; 
+            document.getElementById('ageY').value = ""; 
         }
     }
     document.getElementById('ageY').addEventListener('input', calcWeightFromAge);
     document.getElementById('ageM').addEventListener('input', calcWeightFromAge);
 
-    // حساب الجرعة وعرضها
     function calculateDose() {
         let weight = parseFloat(document.getElementById('weight').value);
-        if(isNaN(weight) || weight <= 0) {
-            alert("الرجاء إدخال وزن صحيح (كجم)");
-            return;
-        }
-        if(!currentDrug) {
-            alert("يرجى اختيار دواء من القائمة");
-            return;
-        }
-        let doseMl = weight * currentDrug.factor_ml_kg;
-        doseMl = Math.round(doseMl * 10) / 10; // دقة 0.1 مل
+        if(!currentDrug) { alert("اختر الدواء أولاً"); return; }
+        if(isNaN(weight) || weight <= 0) { alert("أدخل الوزن"); return; }
         
-        // حساب المكافئ بالمجم
-        let concValue = 0;
+        let doseMl = Math.round((weight * currentDrug.factor_ml_kg) * 10) / 10;
         let concMatch = currentDrug.concentration.match(/(\d+)\s*مجم/);
-        if(concMatch) concValue = parseFloat(concMatch[1]) / 5; // مجم/مل
-        let mgPerDose = doseMl * concValue;
-        mgPerDose = Math.round(mgPerDose * 10) / 10;
+        let mgPerDose = concMatch ? Math.round((doseMl * (parseFloat(concMatch[1])/5)) * 10)/10 : 0;
         
-        document.getElementById('finalMl').innerHTML = doseMl.toFixed(1) + " مل";
-        document.getElementById('finalMgEquivalent').innerHTML = `≈ ${mgPerDose.toFixed(1)} مجم لكل جرعة`;
-        document.getElementById('drugNameDisplay').innerHTML = currentDrug.name;
-        document.getElementById('concDisplay').innerHTML = currentDrug.concentration;
-        document.getElementById('freqDisplay').innerHTML = currentDrug.frequency;
-        document.getElementById('noteDisplay').innerHTML = currentDrug.note;
-        
-        // تحذير مخصص حسب الدواء
-        let warningMsg = currentDrug.note.includes("يمكن تقليل الجرعة") ? currentDrug.note : `${currentDrug.note} | يمكن تقليل الجرعة بمقدار 0.5-1 مل للجرعة الآمنة (حسب الحالة)`;
-        document.getElementById('warningText').innerHTML = warningMsg;
+        document.getElementById('finalMl').innerText = doseMl.toFixed(1) + " مل";
+        document.getElementById('finalMgEquivalent').innerText = `≈ ${mgPerDose.toFixed(1)} مجم لكل جرعة`;
+        document.getElementById('drugNameDisplay').innerText = currentDrug.name;
+        document.getElementById('concDisplay').innerText = currentDrug.concentration;
+        document.getElementById('freqDisplay').innerText = currentDrug.frequency;
+        document.getElementById('noteDisplay').innerText = currentDrug.note;
+        document.getElementById('warningText').innerText = currentDrug.note;
     }
-    
     document.getElementById('calcBtn').addEventListener('click', calculateDose);
-    // تحديث عند تغيير الوزن
-    document.getElementById('weight').addEventListener('input', () => { if(currentDrug) calculateDose(); });
-    
-    // طباعة ملصق بحجم صيدلاني
+
     function printLabel() {
+        if(!currentDrug) { alert("اختر الدواء أولاً"); return; }
         let weight = parseFloat(document.getElementById('weight').value);
-        let doseMl = weight * currentDrug.factor_ml_kg;
-        doseMl = Math.round(doseMl * 10) / 10;
-        let concMatch = currentDrug.concentration.match(/(\d+)\s*مجم/);
-        let mgValue = doseMl * (parseFloat(concMatch[1])/5);
-        mgValue = Math.round(mgValue * 10)/10;
+        if(isNaN(weight)) { alert("أدخل الوزن"); return; }
+        let doseMl = Math.round((weight * currentDrug.factor_ml_kg) * 10) / 10;
         
-        let printWindow = window.open('', '', 'width=450,height=450');
-        printWindow.document.write(`
+        let win = window.open('', '', 'width=450,height=450');
+        win.document.write(`
             <html dir="rtl"><head><style>
                 @page { size: 80mm 45mm; margin: 2mm; }
-                body { font-family: 'Tajawal', 'Arial'; text-align: center; padding: 5px; color: black; background: white; }
-                .drug-name { font-size: 16px; font-weight: 900; border-bottom: 2px solid #0ea5e9; display: inline-block; margin-bottom: 5px; }
+                body { font-family: 'Tajawal', sans-serif; text-align: center; }
+                .drug-name { font-size: 16px; font-weight: 900; border-bottom: 2px solid #0ea5e9; display: inline-block; }
                 .dose-big { font-size: 32px; font-weight: 900; color: #047857; margin: 5px 0; }
-                .info { font-size: 14px; font-weight: bold; }
-                .note-small { font-size: 10px; margin-top: 5px; border-top: 1px dashed gray; padding-top: 3px; }
-                .footer-sign { font-size: 9px; margin-top: 6px; font-weight: bold; }
             </style></head><body onload="window.print();window.close()">
                 <div class="drug-name">${currentDrug.name}</div>
                 <div class="dose-big">${doseMl.toFixed(1)} مل</div>
-                <div class="info">${currentDrug.frequency}</div>
-                <div class="info">${mgValue.toFixed(1)} مجم لكل جرعة</div>
-                <div class="note-small">${currentDrug.note}</div>
-                <div class="footer-sign">الصيدلاني : مصطفى عبد الزهرة هاشم</div>
+                <div>${currentDrug.frequency}</div>
+                <div style="font-size:10px; margin-top:5px;">الصيدلاني : مصطفى عبد الزهرة هاشم</div>
             </body></html>
         `);
-        printWindow.document.close();
+        win.document.close();
     }
     document.getElementById('printBtn').addEventListener('click', printLabel);
-    
-    // تهيئة اولية
-    buildDrugList("");
-    currentDrug = drugsDatabase[0];
-    searchInput.value = drugsDatabase[0]?.name || "";
-    calculateDose();
 </script>
+
 </body>
 </html>
